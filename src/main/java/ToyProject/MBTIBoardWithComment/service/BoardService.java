@@ -1,6 +1,7 @@
 package ToyProject.MBTIBoardWithComment.service;
 
 import ToyProject.MBTIBoardWithComment.domain.Board;
+import ToyProject.MBTIBoardWithComment.domain.Member;
 import ToyProject.MBTIBoardWithComment.exception.DataNotFoundException;
 import ToyProject.MBTIBoardWithComment.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
@@ -40,11 +41,23 @@ public class BoardService {
         return this.boardRepository.findAll(pageable);
     }
 
-    public void create(String subject, String content){
+    public void create(String subject, String content, Member member){
         Board b = new Board();
         b.setSubject(subject);
         b.setContent(content);
         b.setCreateDate(new Date()); //오라클은.now()가 아닌 new Date()로 해주면 된다
+        b.setAuthor(member);
         this.boardRepository.save(b);
+    }
+
+    public void modify(Board board, String subject, String content) {
+        board.setSubject(subject);
+        board.setContent(content);
+        board.setModifyDate(new Date());
+        this.boardRepository.save(board);
+    }
+
+    public void delete(Board board){
+        this.boardRepository.delete(board);
     }
 }
