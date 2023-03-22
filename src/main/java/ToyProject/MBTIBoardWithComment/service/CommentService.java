@@ -6,9 +6,15 @@ import ToyProject.MBTIBoardWithComment.domain.Member;
 import ToyProject.MBTIBoardWithComment.exception.DataNotFoundException;
 import ToyProject.MBTIBoardWithComment.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -49,5 +55,19 @@ public class CommentService {
 
     public void delete(Comment comment){
         this.commentRepository.delete(comment);
+    }
+
+    public void vote(Comment comment, Member member){
+        comment.getVoter().add(member);
+        this.commentRepository.save(comment);
+    }
+
+    /*페이징*/
+    public Page<Comment> getList(Board board, int page){
+        List<Sort.Order> sorts = new ArrayList<>();
+        sorts.add(Sort.Order.desc("createDate"));
+
+        Pageable pageable = PageRequest.of(page, 5);
+        return this.commentRepository.findAllByBoard(board, pageable);
     }
 }

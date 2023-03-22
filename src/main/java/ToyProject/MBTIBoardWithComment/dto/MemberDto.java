@@ -22,4 +22,6 @@ public class MemberDto {
     @Email
     private String email;
 
+    @NotEmpty(message = "닉네임을 입력해주세요.")
+    private String nickname;
 }

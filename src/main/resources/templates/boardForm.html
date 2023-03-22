@@ -10,7 +10,16 @@
     <div th:replace="form_errors :: formErrorsFragment"></div>
     <!--th:replace - 공통템플릿을 템플릿내에 삽입가능-->
     <!--div엘리먼트를 form_errors.html파일의 th:fragment속성명이 formErrorsFragment인 엘리먼트로 교체-->
-
+    <div>
+      <select th:field="*{category}" class="form-select">
+        <option value="">카테고리를선택해주세요</option> <!--선택안한 비어있는값-->
+        <option value="제로웨이스트">제로웨이스트</option>
+        <option value="리사이클링">리사이클링</option>
+        <option value="동물식물">동물·식물</option>
+        <option value="친환경정책">친환경정책</option>
+        <option value="자유게시판">자유게시판</option>
+      </select>
+    </div>
     <div class="mb-3">
       <label th:for="subject" class="form-label">제목</label>
       <input type="text" th:field="*{subject}" class="form-control">

@@ -16,9 +16,10 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public Member create(String username, String email, String password){
+    public Member create(String username, String email, String password, String nickname){
         Member member = new Member();
         member.setUsername(username);
+        member.setNickname(nickname);
         member.setEmail(email);
         member.setPassword(passwordEncoder.encode(password));
         this.memberRepository.save(member);
@@ -33,5 +34,13 @@ public class MemberService {
         }else{
             throw new DataNotFoundException("member not found");
         }
+    }
+
+    //회원수정
+    public Member modify(Member member,String nickname, String email) {
+        member.setNickname(nickname);
+        member.setEmail(email);
+        this.memberRepository.save(member);
+        return member;
     }
 }

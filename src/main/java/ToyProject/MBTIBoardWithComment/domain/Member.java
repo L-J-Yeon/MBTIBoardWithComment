@@ -20,4 +20,12 @@ public class Member {
     private String email;
 
     private String role;
+
+    @PrePersist
+    public void setting() {
+        this.role = "ROLE_USER";
+    }
+
+    @Column(unique = true)
+    private String nickname;
 }

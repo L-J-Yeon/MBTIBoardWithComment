@@ -1,5 +1,6 @@
 package ToyProject.MBTIBoardWithComment.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -13,4 +14,8 @@ public class BoardDto {
 
     @NotEmpty(message = "내용은 필수항목입니다.")
     private String content;
+
+    /*카테고리메세지*/
+    @NotBlank(message = "카테고리선택은 필수항목입니다.")
+    private String category;
 }

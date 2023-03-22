@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Getter @Setter
@@ -26,4 +27,7 @@ public class Comment {
 
     @Column(insertable = true, updatable = true, columnDefinition = "date default LOCALTIMESTAMP")
     private Date modifyDate;
+
+    @ManyToMany //하나의 질문에 여러사람이 추천, 한사람이 여러개의 질문을 추천(대등관계)
+    Set<Member> voter; /*추천인은 중복되면 안됨-Set*/
 }
