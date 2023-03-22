@@ -1,0 +1,83 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layout}">
+<!--layout:decorate 속성 : 템플릿의 레이아웃(부모템플릿)으로 사용할 템플릿을 설정-->
+
+
+<div layout:fragment="content" class="container my-3"> <!--<th:block layout:fragment="content"></th:block>-->
+    <table class="table">
+        <thead class="table-dark">
+        <tr class="text-center">
+            <th>번호</th>
+            <th style="width:50%">제목</th>
+            <th>글쓴이</th>
+            <th>작성일시</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr class="text-center" th:each="board, loop : ${paging}">
+            <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
+            <!--<td th:text="${loop.count}"></td>테이블항목에 번호추가-->
+
+            <td class="text-start">
+                <a th:href="@{/board/detail/${board.id}}" th:text="${board.subject}"></a>
+                <!--해당질문에 달린답변개수 표시-->
+                <span class="text-danger small ms-2"
+                      th:if="${#lists.size(board.commentList) > 0}"
+                      th:text="${#lists.size(board.commentList)}"></span>
+            </td>
+
+            <td>
+                <span th:if="${board.author != null}" th:text="${board.author.username}"></span>
+            </td>
+
+            <!--날짜객체 날짜포맷에맞게 변환-->
+            <td th:text="${board.createDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- 페이징처리 시작 -->
+    <div th:if="${!paging.isEmpty()}"><!--paging.isEmpty:페이지존재여부(게시물있으면 false,없으면 true)-->
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+                <!-- !paging.hasPrevious - disabled : 이전페이지가 없으면 비활성화-->
+
+                <a class="page-link" th:href="@{?page=${paging.number-1}}">
+                    <!--이전페이지 링크-->
+                    <span>이전</span>
+                </a>
+            </li>
+
+
+            <!--th:each :페이지 리스트 루프--> <!--#numbers.sequence(시작, 끝)-->
+            <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+
+                th:if="${page >= paging.number-5 and page <= paging.number+5}"
+
+                th:classappend="${page == paging.number} ? 'active'"
+                class="page-item">
+                <!--page == paging.number : 현재페이지와 같으면 active 적용-->
+
+                <a th:text="${page}" class="page-link" th:href="@{?page=${page}}"></a>
+            </li>
+
+
+            <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+                <!-- !paging.hasNext - disabled : 다음페이지 없으면 비활성화-->
+
+                <a class="page-link" th:href="@{?page=${paging.number+1}}">
+                    <!--다음페이지 링크-->
+                    <span>다음</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- 페이징처리 끝 -->
+
+    <a th:href="@{/board/create}" class="btn btn-primary">질문 등록하기</a> <!--질문버튼추가 부트스트랩으로 버튼디자인!-->
+
+</div>
+
+
+</html>
