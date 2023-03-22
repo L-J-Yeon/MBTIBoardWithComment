@@ -25,9 +25,6 @@ public class SecurityConfig {
         http.csrf().disable();
         http.authorizeHttpRequests().requestMatchers("/**").permitAll();
         http.formLogin().loginPage("/member/login")
-                .loginProcessingUrl("/member/login")
-                .usernameParameter("username")
-                .passwordParameter("password")
                 .defaultSuccessUrl("/")
                 .failureUrl("/member/login")
                 .and()
@@ -38,6 +35,26 @@ public class SecurityConfig {
 
         return http.build();
     }
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+//        http.csrf().disable()
+//                .authorizeHttpRequests((requests) -> requests
+//                        .requestMatchers("/**").permitAll()
+//                        .anyRequest().authenticated())
+//                .formLogin((form) -> form
+//                        .loginPage("/member/login")
+//                        .loginProcessingUrl("/member/login")
+//                        .defaultSuccessUrl("/board/list")
+//                        .failureUrl("/member/login")
+//                        .permitAll())
+//                .logout((logout) -> logout
+//                        .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+//                        .logoutSuccessUrl("/")
+//                        .invalidateHttpSession(true)
+//                        .permitAll());
+//
+//        return http.build();
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
