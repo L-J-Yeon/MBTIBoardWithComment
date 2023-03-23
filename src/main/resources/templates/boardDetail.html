@@ -138,17 +138,21 @@
 
         <input type="submit" value="답변등록" class="btn btn-primary my-2">
     </form>
-    <div>
-        <span>이전글</span>
-        <span><a th:href="@{/board/detail/${prevID}}"
-                 th:text="*{prevSub}"></a></span>
-    </div>
-    <hr>
-    <div>
-        <span>다음글</span>
-        <span><a th:href="@{/board/detail/${nextID}}"
-                 th:text="*{nextSub}"></a></span>
-    </div>
+    <table class="table-PreNext">
+        <tr>
+            <td width="50px" style="font-weight: bolder" class="KOTRA-fontsize-100">이전글</td>
+            <td><a th:href="@{/board/detail/${prevID}}"
+                   th:classappend="${prevID == '0'} ? 'disabled'"
+                   th:text="*{prevSub}" class="KOTRA-fontsize-100"></a></td>
+        </tr>
+        <tr>
+            <td width="50px"  style="font-weight: bolder" class="KOTRA-fontsize-100">다음글</td>
+            <td><a th:href="@{/board/detail/${nextID}}"
+                   th:classappend="${nextID == '0'} ? 'disabled'"
+                   th:text="*{nextSub}" id="nextSUB"
+                   class="KOTRA-fontsize-100"></a></td>
+        </tr>
+    </table>
 </div>
 
 

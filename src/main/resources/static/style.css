@@ -5,3 +5,7 @@ input[type=submit]{
     margin-top: 10px;
 }
 /*질문상세화면 css*/
+.disabled{
+    cursor: not-allowed;
+    pointer-events: none;
+}
