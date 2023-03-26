@@ -3,11 +3,10 @@
 
 <div layout:fragment="content" class="container">
   <h5 class="my-3 border-bottom pb-2">질문등록</h5>
-  <form th:object="${boardDto}" method="post">
-
+  <form th:object="${boardDto}" method="post" role="form">
     <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />-->
 
-    <div th:replace="form_errors :: formErrorsFragment"></div>
+    <!--<div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
     <!--th:replace - 공통템플릿을 템플릿내에 삽입가능-->
     <!--div엘리먼트를 form_errors.html파일의 th:fragment속성명이 formErrorsFragment인 엘리먼트로 교체-->
     <div>

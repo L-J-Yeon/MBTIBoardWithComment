@@ -27,7 +27,7 @@
                     </div>
                     <div th:text="${board.createDate}"></div>
                     <!--조회수-->
-                    <div th:text="조회수 : ${board.countview}" class="d-flex justify-content-end fw-bold"></div>
+                    <div th:text="|조회수 : ${board.countview}|" class="d-flex justify-content-end fw-bold"></div>
 
                 </div>
             </div>
@@ -35,15 +35,15 @@
             <div class="my-3">
                 <!--질문추천버튼-->
                 <a href="javascript:void(0)"; class="recommend btn btn-sm btn-outline-secondary"
-                   th:data-uri="@{/board/vote/${board.id}}">추천
+                   th:data-uri="@{/board/vote/{id}(id = ${board.id})}">추천
                     <span class="badge rounded-pill bg-success" th:text="${#lists.size(board.voter)}"></span></a>
                 <!--질문수정버튼-->
-                <a th:href="@{/board/modify/${board.id}}" class="btn btn-sm btn-outline-secondary"
+                <a th:href="@{/board/modify/{id}(id = ${board.id})}" class="btn btn-sm btn-outline-secondary"
                    sec:authorize="isAuthenticated()"
                    th:if="${board.author != null and #authentication.getPrincipal().getUsername() == board.author.username}"
                    th:text="수정"></a>
                 <!--질문삭제버튼-->
-                <a href="javascript:void(0);" th:data-uri="@{/board/delete/${board.id}}"
+                <a href="javascript:void(0);" th:data-uri="@{/board/delete/{id}(id = ${board.id})}"
                    class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
                    th:if="${board.author != null and #authentication.getPrincipal().getUsername() == board.author.username}"
                    th:text="삭제"></a>
@@ -57,7 +57,7 @@
     <!--#list.size(이터러블객체)-타임리프가 제공하는 유틸리티로 객체의 길이를 반환-->
     <!--답변 반복 시작-->
     <div class="card my-3" th:each="comment : ${board.commentList}">
-        <a th:id="comment{comment.id}"></a> <!--앵커태그-->
+        <a th:id="|comment_${comment.id}|"></a> <!--앵커태그-->
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;" th:text="${comment.content}"></div>
             <div class="d-flex justify-content-end">
@@ -82,15 +82,15 @@
             <div class="my-3">
                 <!--답변추천버튼-->
                 <a href="javascript:void(0);" class="recommend btn btn-sm btn-outline-secondary"
-                   th:data-uri="@{/comment/vote/${comment.id}}">추천
+                   th:data-uri="@{/comment/vote/{id}(id = ${comment.id})}">추천
                     <span class="badge rounded-pill bg-success" th:text="${#lists.size(comment.voter)}"></span></a>
                 <!--답변수정버튼-->
-                <a th:href="@{/comment/modify/${comment.id}}" class="btn btn-sm btn-outline-secondary"
+                <a th:href="@{/comment/modify/{id}(id = ${comment.id})}" class="btn btn-sm btn-outline-secondary"
                    sec:authorize="isAuthenticated()"
                    th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.username}"
                    th:text="수정"></a>
                 <!--답변삭제버튼-->
-                <a href="javascript:void(0);" th:data-uri="@{/comment/delete/${comment.id}}"
+                <a href="javascript:void(0);" th:data-uri="@{/comment/delete/{id}(id = ${comment.id})}"
                    class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
                    th:if="${comment.author != null and #authentication.getPrincipal().getUsername() == comment.author.username}"
                    th:text="삭제"></a>
@@ -123,10 +123,10 @@
     </div>
     <!-- 페이징처리 끝 -->
     <!--답변 작성-->
-    <form th:action="@{/comment/create/${board.id}}"
-          th:object="${commentForm}" method="post" class="my-3">
+    <form th:action="@{/comment/create/{id}(id = ${board.id})}"
+          th:object="${commentDto}" method="post" class="my-3">
 
-        <div th:replace="form_errors :: formErrorsFragment"></div>
+        <!--<div th:replace="~{form_errors :: formErrorsFragment}"></div>-->
         <!--th:replace - 공통템플릿을 템플릿내에 삽입가능-->
         <!--div엘리먼트를 form_errors.html파일의 th:fragment속성명이 formErrorsFragment인 엘리먼트로 교체-->
 
@@ -141,13 +141,13 @@
     <table class="table-PreNext">
         <tr>
             <td width="50px" style="font-weight: bolder" class="KOTRA-fontsize-100">이전글</td>
-            <td><a th:href="@{/board/detail/${prevID}}"
+            <td><a th:href="@{/board/detail/{prevID}(prevID = ${board.id})}"
                    th:classappend="${prevID == '0'} ? 'disabled'"
                    th:text="*{prevSub}" class="KOTRA-fontsize-100"></a></td>
         </tr>
         <tr>
             <td width="50px"  style="font-weight: bolder" class="KOTRA-fontsize-100">다음글</td>
-            <td><a th:href="@{/board/detail/${nextID}}"
+            <td><a th:href="@{/board/detail/{nextID}(nextID = ${board.id})}"
                    th:classappend="${nextID == '0'} ? 'disabled'"
                    th:text="*{nextSub}" id="nextSUB"
                    class="KOTRA-fontsize-100"></a></td>

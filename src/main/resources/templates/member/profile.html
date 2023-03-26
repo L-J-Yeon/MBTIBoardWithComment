@@ -6,7 +6,7 @@
   <h4>회원정보</h4>
 
   <form th:action="@{/member/info}" th:object="${memberModifyDto}" method="post">
-    <div th:replace="form_errors :: formErrorsFragment"></div>
+    <!--<div th:replace="form_errors :: formErrorsFragment"></div>-->
     <div>
       <label th:for="username">사용자ID</label>
       <input type="text" th:field="${member.username}" readonly>

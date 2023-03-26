@@ -90,7 +90,7 @@ public class CommentController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
         }
         this.commentService.delete(comment);
-        return String.format("redirect:/board/detail/%s, comment.getBoard().getId()");
+        return String.format("redirect:/board/detail/%s", comment.getBoard().getId());
     }
 
     /*답변추천*/

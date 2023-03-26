@@ -46,7 +46,7 @@ public class BoardController {
 
     /*질문상세*/ //댓글페이징추가
     @RequestMapping(value = "/detail/{id}")
-    public String detail(Model model, @PathVariable("id") Integer id, CommentDto commentDto,
+    public String detail(Model model, @PathVariable("id") Integer id, @Valid CommentDto commentDto,
                          @RequestParam(value="page", defaultValue="0") int page) {
 
         /*댓글페이징*/
@@ -120,8 +120,7 @@ public class BoardController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{id}")
-    public String boardModify(Principal principal,
-                                 @PathVariable("id") Integer id) {
+    public String boardModify(Principal principal, @PathVariable("id") Integer id) {
 
         Board board = this.boardService.getBoard(id);
 

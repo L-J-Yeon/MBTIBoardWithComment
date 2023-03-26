@@ -47,7 +47,7 @@ public class BoardService {
 
     public Page<Board> getList(int page, String kw) { //kw추가
         List<Sort.Order> sorts = new ArrayList<>();
-        sorts.add(Sort.Order.desc("createDate"));
+        sorts.add(Sort.Order.desc("id"));
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         Specification<Board> spec = search(kw); //추가
         return this.boardRepository.findAll(spec, pageable); //spec추가
