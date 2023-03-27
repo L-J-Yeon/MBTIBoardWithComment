@@ -2,8 +2,8 @@
 spring boot와 spring security 6 를 사용해 만든 간단한 게시판 구현
 
 # Technical Specification
-● JAVA 17
-● Gradle
+- JAVA 17
+- Gradle
 ● IntelliJ IDEA
 ● H2 DataBase 2.1.214
 ● Spring Boot 3.0.4 RELEASE
