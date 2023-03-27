@@ -53,7 +53,7 @@
     </div>
     <!--답변의 갯수표시-->
     <h5 class="border-bottom my-3 py-2"
-        th:text="|${#lists.size(board.commentList)}개의 답변이 있습니다.|"></h5>
+        th:text="|${#lists.size(board.commentList)}개의 댓글이 있습니다.|"></h5>
     <!--#list.size(이터러블객체)-타임리프가 제공하는 유틸리티로 객체의 길이를 반환-->
     <!--답변 반복 시작-->
     <div class="card my-3" th:each="comment : ${board.commentList}">
@@ -136,7 +136,7 @@
         <textarea sec:authorize="isAuthenticated()" th:field="*{content}"
                   class="form-control" rows="10"></textarea>
 
-        <input type="submit" value="답변등록" class="btn btn-primary my-2">
+        <input type="submit" value="댓글등록" class="btn btn-primary my-2">
     </form>
     <table class="table-PreNext">
         <tr>

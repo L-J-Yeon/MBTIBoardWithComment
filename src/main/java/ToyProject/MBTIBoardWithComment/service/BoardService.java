@@ -8,13 +8,18 @@ import ToyProject.MBTIBoardWithComment.exception.DataNotFoundException;
 import ToyProject.MBTIBoardWithComment.repository.BoardPageRepository;
 import ToyProject.MBTIBoardWithComment.repository.BoardRepository;
 import jakarta.persistence.criteria.*;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
